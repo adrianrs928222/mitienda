@@ -1,13 +1,1 @@
-# Ignora dependencias
-node_modules/
-
-# Ignora archivos de producción
-dist/
-build/
-
-# Ignora configuración local y claves
 .env
-
-# Otros típicos
-.DS_Store
-*.log

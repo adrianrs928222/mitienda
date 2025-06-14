@@ -1,17 +1,26 @@
 {
-  "name": "almohadas-checkout",
-  "version": "1.0.0",
-  "description": "Tienda de almohadas con Stripe Checkout",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "stripe": "^12.18.0"
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "stripe": "^18.2.1"
+  },
+  "name": "una-tienda",
+  "version": "1.0.0",
+  "main": "backend.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrianrs928222/mitienda.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adrianrs928222/mitienda/issues"
+  },
+  "homepage": "https://github.com/adrianrs928222/mitienda#readme",
+  "description": ""
 }
