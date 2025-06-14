@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 require("dotenv").config(); // << Carga las variables del .env
 
 const express = require("express");
 const cors = require("cors");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); // << Usa la clave protegida
+=======
+// server.js
+const express = require('express');
+const stripe = require('stripe')('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'); // <-- Sustituye esto
+>>>>>>> c5b2c4c7547082ac34ae98c1e7e79a116dce5b33
 
 const app = express();
 app.use(cors());
