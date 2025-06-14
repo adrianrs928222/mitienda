@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Almohadas | AquisoloAlmohadas.net</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://js.stripe.com/v3/"></script> <!-- Stripe script -->
   <style>
+    /* ... tus estilos existentes ... */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -104,7 +106,6 @@
   <div class="container">
     <div class="hero">
       <h1>Almohada Ortopédica Cervical</h1>
-      <!-- Cambia "almohada.jpg" por el nombre de tu imagen local -->
       <img src="almohada.jpg" alt="Almohada ortopédica" />
     </div>
 
@@ -136,7 +137,7 @@
   </footer>
 
   <script>
-    // Simulamos un carrito con localStorage
+    const stripe = Stripe("pk_live_51RY84KDXKnXqgNc1d0b5ZM42IOQeSJ4jDsAM4tqnrXnSutSqBhUkKnGjM9uNJm6azK0BVAqL75axyLgHbjjPfm8D00ITlvIuTm"); // Reemplaza con tu clave pública real de Stripe
     const cartKey = "almohada-cart";
     const cartStatus = document.getElementById("cartStatus");
     const toggleCartBtn = document.getElementById("toggleCartBtn");
@@ -157,16 +158,39 @@
       updateCartUI();
     });
 
-    function checkout() {
+    async function checkout() {
       const inCart = localStorage.getItem(cartKey) === "true";
       if (!inCart) {
         alert("Primero debes añadir el producto al carrito.");
         return;
       }
-      window.location.href = "https://checkout.stripe.com/pay/YOUR_CHECKOUT_SESSION_ID";
+
+      try {
+        const response = await fetch("/crear-sesion-checkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            producto: "almohada"
+          })
+        });
+
+        const session = await response.json();
+
+        const result = await stripe.redirectToCheckout({
+          sessionId: session.id
+        });
+
+        if (result.error) {
+          alert(result.error.message);
+        }
+      } catch (error) {
+        console.error("Error durante el checkout:", error);
+        alert("No se pudo iniciar el pago. Inténtalo de nuevo.");
+      }
     }
 
-    // Inicializar al cargar
     updateCartUI();
   </script>
 </body>
